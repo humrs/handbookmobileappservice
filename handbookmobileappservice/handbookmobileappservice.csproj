@@ -233,6 +233,10 @@
     <Compile Include="DataObjects\InitialUpdateJsonItem.cs" />
     <Compile Include="DataObjects\LicenceKeyItem.cs" />
     <Compile Include="DataObjects\UserUpdateStatusItem.cs" />
+    <Compile Include="Migrations\201608030034377_Initial-v0.1.1.cs" />
+    <Compile Include="Migrations\201608030034377_Initial-v0.1.1.Designer.cs">
+      <DependentUpon>201608030034377_Initial-v0.1.1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\RequestMessages\AppLogItemMessage.cs" />
     <Compile Include="Models\MobileServiceContext.cs" />
@@ -271,6 +275,11 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201608030034377_Initial-v0.1.1.resx">
+      <DependentUpon>201608030034377_Initial-v0.1.1.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
