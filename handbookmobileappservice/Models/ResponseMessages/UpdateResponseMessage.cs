@@ -23,7 +23,8 @@ namespace handbookmobileappservice.Models
         Updated,
         NoUserIdGiven,
         NoUserIdFound,
-        UpdatesException
+        UpdatesException,
+        NoInitialJsonFound
     }
 
     [JsonObject(MemberSerialization.OptIn)]

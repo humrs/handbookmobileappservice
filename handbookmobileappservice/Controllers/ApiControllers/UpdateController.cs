@@ -32,6 +32,47 @@ namespace handbookmobileappservice.Controllers
     [MobileAppController]
     public class UpdateController : BaseDbApiController
     {
+        [HttpPost, Route("api/resetupdates")]
+        public HttpResponseMessage ResetUpdates(HttpRequestMessage request)
+        {
+            string username = FromClaimsPrincipal.GetUsername((ClaimsPrincipal)this.User);
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                return createUpdateNoUsernameGivenMessage(request);
+            }
+
+            try
+            {
+                var updateCfg = getUserUpdateStatusItemByUser(this.context, username);
+                if (updateCfg == null)
+                {
+                    return createUpdateNoUsernameFoundMessage(request, username);
+                }
+
+                var iuj = this.context.InitialUpdateJsonItems.Where(p => p.Id == updateCfg.HandbookType).FirstOrDefault();
+                if (iuj == null)
+                {
+                    return createNoInitialUpdateJsonMessage(request, username, updateCfg.HandbookType);
+                }
+
+                updateCfg.UpdateJson = iuj.UpdateJson;
+
+                this.context.SaveChanges();
+
+                return request.CreateResponse(
+                    HttpStatusCode.OK,
+                    new UpdateResponseMessage {
+                        Code = UpdateResponseMessageCode.Updated,
+                        Message = string.Format("UserUpdateStatusItem reset")
+                    });
+
+            }
+            catch (Exception ex)
+            {
+                return createUpdateExceptionMessage(request, username, ex);
+            }
+        }
+
         [HttpPost, Route("api/updates")]
         public HttpResponseMessage Updates(HttpRequestMessage request)
         {
@@ -152,6 +193,16 @@ namespace handbookmobileappservice.Controllers
                 new UpdateResponseMessage {
                     Code = UpdateResponseMessageCode.UpdatesException,
                     Message = string.Format("Exception. UserId = {0}: {1}", username, ex.Message.ToString())
+                });
+        }
+
+        private HttpResponseMessage createNoInitialUpdateJsonMessage(HttpRequestMessage request, string username, string handbookType)
+        {
+            return request.CreateResponse(
+                HttpStatusCode.BadRequest,
+                new UpdateResponseMessage {
+                    Code = UpdateResponseMessageCode.NoInitialJsonFound,
+                    Message = string.Format("No Initial Json Found. UserId = {0}: {1}", username, handbookType)
                 });
         }
 
