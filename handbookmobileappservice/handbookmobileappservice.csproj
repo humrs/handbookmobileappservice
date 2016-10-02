@@ -218,6 +218,7 @@
     <Compile Include="App_Start\Startup.MobileApp.cs" />
     <Compile Include="Controllers\ApiControllers\BaseDbApiController.cs" />
     <Compile Include="Controllers\ApiControllers\LicenceKeyController.cs" />
+    <Compile Include="Controllers\ApiControllers\ServerUpdateController.cs" />
     <Compile Include="Controllers\ApiControllers\UpdateController.cs" />
     <Compile Include="Controllers\ApiControllers\AppLogBulkController.cs" />
     <Compile Include="Controllers\TableControllers\AppLogItemController.cs" />
@@ -233,6 +234,10 @@
     <Compile Include="DataObjects\InitialUpdateJsonItem.cs" />
     <Compile Include="DataObjects\LicenceKeyItem.cs" />
     <Compile Include="DataObjects\UserUpdateStatusItem.cs" />
+    <Compile Include="Migrations\201609210926024_Initial.cs" />
+    <Compile Include="Migrations\201609210926024_Initial.Designer.cs">
+      <DependentUpon>201609210926024_Initial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\RequestMessages\AppLogItemMessage.cs" />
     <Compile Include="Models\MobileServiceContext.cs" />
@@ -272,6 +277,11 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201609210926024_Initial.resx">
+      <DependentUpon>201609210926024_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
